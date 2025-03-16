@@ -1,0 +1,38 @@
+﻿@model IEnumerable<LifeMakers.Models.LifeMaker>
+
+@{
+    ViewData["Title"] = "مرحبًا أيها المتطوع";
+}
+
+<div class="container text-center">
+    <h1 class="display-4">مرحبًا بك أيها المتطوع</h1>
+    <p>يرجى إدخال الرقم القومي للتحقق من بياناتك.</p>
+
+    <form id="volunteerForm" method="post" asp-controller="Home" asp-action="VerifyVolunteer">
+        <div class="mb-3">
+            <label for="nationalID" class="form-label">الرقم القومي:</label>
+            <input type="text" class="form-control text-center" id="nationalID" name="nationalID" maxlength="14" required>
+            <small class="text-danger d-none" id="error-msg">الرقم القومي يجب أن يكون 14 رقمًا.</small>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg w-50">تحقق</button>
+    </form>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger mt-3">@TempData["Error"]</div>
+    }
+</div>
+
+<script>
+    document.getElementById("volunteerForm").addEventListener("submit", function (e) {
+        var nationalID = document.getElementById("nationalID").value.trim();
+        var errorMsg = document.getElementById("error-msg");
+
+        if (!/^\d{14}$/.test(nationalID)) {
+            e.preventDefault();
+            errorMsg.classList.remove("d-none");
+        } else {
+            errorMsg.classList.add("d-none");
+        }
+    });
+</script>

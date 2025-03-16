@@ -1,0 +1,218 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] - صُناع الحياة</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Cairo', sans-serif;
+            direction: rtl;
+        }
+
+        .top-bar {
+            background-color: #0b2447;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .top-bar .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .top-bar .contact-info i {
+            margin-right: 5px;
+        }
+
+        .top-bar .social-media {
+            margin-right: 20px;
+        }
+
+        .top-bar .social-media a {
+            color: white;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            margin-left: 30px;
+        }
+
+        .logo img {
+            height: 60px;
+        }
+
+        nav {
+            flex: 1;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            color: #0b2447;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 15px;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+          color: #ff6f00 !important;
+        }
+
+        nav ul li ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            padding: 10px 0;
+            list-style: none;
+            margin: 0;
+            z-index: 1000;
+            min-width: 200px;
+            text-align: right;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul li:hover ul {
+            display: block;
+        }
+
+        nav ul li ul li {
+            margin: 0;
+        }
+
+        nav ul li ul li a {
+            color: #0b2447;
+            font-size: 16px;
+            padding: 10px 20px;
+            display: block;
+        }
+
+        nav ul li ul li a:hover {
+          color: #ff6f00 !important;
+        }
+
+        .caret {
+            display: inline-block;
+            margin-left: 5px;
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+            border-left: 4px solid #0b2447;
+            vertical-align: middle;
+        }
+
+        main {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #0b2447;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <span><i class="fas fa-map-marker-alt"></i> 3 ش المشتل تقسيم الشيشينى - كورنيش النيل - المعادى - القاهرة - مصر</span> |
+        <span><i class="fas fa-phone"></i> 16563</span>
+        <span><i class="fas fa-email"></i> info@hpt.ea2.myftpupload.com</span>
+    </div>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                    <img src="https://lifemakers.org/wp-content/uploads/2021/08/logo.png" alt="صُناع الحياة" height="50">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">الرئيسية</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                                صناع الحياة
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">عن صناع الحياة</a></li>
+                                <li><a class="dropdown-item" href="#">مشاريعنا</a></li>
+                                <li><a class="dropdown-item" href="#">شركاؤنا</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                روابط سريعة
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Index">الرئيسية</a></li>
+                                <li><a class="dropdown-item" href="https://hpt.ea2.myftpupload.com/%d9%85%d9%86-%d9%86%d8%ad%d9%86/">من نحن</a></li>
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Contact">اتصل بنا</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="News">الأخبار</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Privacy">سياسة الخصوصية</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Contact">اتصل بنا</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+﻿@model LifeMakers.Models.LifeMaker
+
+@{
+    ViewData["Title"] = "لوحة المتطوع";
+
+    int campaignCount = ViewBag.CampaignCount ?? 0;
+    int convoyCount = ViewBag.ConvoyCount ?? 0;
+    int otherCount = ViewBag.OtherCount ?? 0;
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- User Card -->
+        <div class="col-md-4">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded text-center">
+                <img src="@Model.ProfileImage" class="card-img-top rounded-circle mx-auto mt-3" style="width: 150px; height: 150px; object-fit: cover;" alt="الصورة الشخصية">
+                <div class="card-body">
+                    <h4 class="card-title">@Model.Name</h4>
+                    <p class="card-text text-muted">@Model.Email</p>
+                    <p class="card-text"><strong>الهاتف:</strong> @Model.Phone</p>
+                    <p class="card-text"><strong>الحالة:</strong> <span class="badge @(Model.Status == "نشط" ? "bg-success" : "bg-danger")">@Model.Status</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data -->
+        <div class="col-md-8">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="card-body">
+                    <h3 class="mb-4">بيانات المتطوع</h3>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>الرقم القومي:</strong> @Model.NationalId</li>
+                        <li class="list-group-item"><strong>تاريخ الانضمام:</strong> @Model.JoinDate.ToString("yyyy/MM/dd")</li>
+                        <li class="list-group-item"><strong>الأنشطة:</strong> @Model.Activities</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="card-body">
+                    <h5 class="card-title text-center">إحصائيات النشاط</h5>
+                    <canvas id="activityChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="card-body">
+                    <h5 class="card-title text-center">نسبة المشاركة</h5>
+                    <canvas id="participationChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var ctx1 = document.getElementById("activityChart").getContext("2d");
+        var activityChart = new Chart(ctx1, {
+            type: "bar",
+            data: {
+                labels: ["حملات", "قوافل", "أنشطة أخرى"],
+                datasets: [{
+                    label: "عدد المشاركات",
+                    data: [@campaignCount, @convoyCount, @otherCount],
+                    backgroundColor: ["#007bff", "#28a745", "#ffc107"]
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        var ctx2 = document.getElementById("participationChart").getContext("2d");
+        var total = @campaignCount + @convoyCount + @otherCount;
+        var participationChart = new Chart(ctx2, {
+            type: "doughnut",
+            data: {
+                labels: ["حملات", "قوافل", "أنشطة أخرى"],
+                datasets: [{
+                    data: total > 0 ? [@campaignCount, @convoyCount, @otherCount] : [1, 1, 1], 
+                    backgroundColor: ["#007bff", "#28a745", "#ffc107"]
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    });
+</script>
