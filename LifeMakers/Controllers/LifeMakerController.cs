@@ -1,6 +1,8 @@
-﻿using LifeMakers.dbcontexts;
-using LifeMakers.Models;
+using System;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
+using LifeMakers.dbcontexts;
+using LifeMakers.Models;
 
 namespace LifeMakers.Controllers
 {
@@ -23,14 +25,15 @@ namespace LifeMakers.Controllers
                 Status = status
             };
 
+            string safeActivities = activities ?? string.Empty;
 
-            int campaignCount = activities.Split(' ').Count(word => word.Contains("حملة"));
-            int convoyCount = activities.Split(' ').Count(word => word.Contains("قافلة"));
-            int otherCount = activities.Split(' ').Length - (campaignCount + convoyCount);
+            int campaignCount = Regex.Matches(safeActivities, "(حملة|حملات)", RegexOptions.IgnoreCase).Count;
+            int convoyCount = Regex.Matches(safeActivities, "(قافلة|قوافل)", RegexOptions.IgnoreCase).Count;
+            int attractCount = Regex.Matches(safeActivities, "(جذب)", RegexOptions.IgnoreCase).Count;
 
             ViewBag.CampaignCount = campaignCount;
             ViewBag.ConvoyCount = convoyCount;
-            ViewBag.OtherCount = otherCount;
+            ViewBag.AttractionCount = attractCount;
 
             return View(volunteer);
         }
