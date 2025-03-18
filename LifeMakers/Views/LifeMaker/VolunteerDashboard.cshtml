@@ -1,16 +1,15 @@
-﻿@model LifeMakers.Models.LifeMaker
+@model LifeMakers.Models.LifeMaker
 
 @{
     ViewData["Title"] = "لوحة المتطوع";
 
     int campaignCount = ViewBag.CampaignCount ?? 0;
     int convoyCount = ViewBag.ConvoyCount ?? 0;
-    int otherCount = ViewBag.OtherCount ?? 0;
+    int attractionCount = ViewBag.AttractionCount ?? 0;
 }
 
 <div class="container mt-5">
     <div class="row">
-        <!-- User Card -->
         <div class="col-md-4">
             <div class="card shadow-lg p-3 mb-5 bg-white rounded text-center">
                 <img src="@Model.ProfileImage" class="card-img-top rounded-circle mx-auto mt-3" style="width: 150px; height: 150px; object-fit: cover;" alt="الصورة الشخصية">
@@ -23,7 +22,6 @@
             </div>
         </div>
 
-        <!-- Data -->
         <div class="col-md-8">
             <div class="card shadow-lg p-3 mb-5 bg-white rounded">
                 <div class="card-body">
@@ -38,7 +36,6 @@
         </div>
     </div>
 
-    <!-- Charts -->
     <div class="row mt-4">
         <div class="col-md-6">
             <div class="card shadow-lg p-3 mb-5 bg-white rounded">
@@ -60,37 +57,49 @@
     </div>
 </div>
 
-<!-- Chart.js Library -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        var campaignCount = @campaignCount;
+        var convoyCount = @convoyCount;
+        var attractionCount = @attractionCount;
+
         var ctx1 = document.getElementById("activityChart").getContext("2d");
         var activityChart = new Chart(ctx1, {
             type: "bar",
             data: {
-                labels: ["حملات", "قوافل", "أنشطة أخرى"],
+                labels: ["حملات", "قوافل", "جذب"],
                 datasets: [{
                     label: "عدد المشاركات",
-                    data: [@campaignCount, @convoyCount, @otherCount],
+                    data: [campaignCount, convoyCount, attractionCount],
                     backgroundColor: ["#007bff", "#28a745", "#ffc107"]
                 }]
             },
             options: {
                 responsive: true,
                 scales: {
-                    y: { beginAtZero: true }
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1,
+                            precision: 0,
+                            callback: function(value) {
+                                return Number.isInteger(value) ? value : '';
+                            }
+                        }
+                    }
                 }
             }
         });
 
         var ctx2 = document.getElementById("participationChart").getContext("2d");
-        var total = @campaignCount + @convoyCount + @otherCount;
+        var total = campaignCount + convoyCount + attractionCount;
         var participationChart = new Chart(ctx2, {
             type: "doughnut",
             data: {
-                labels: ["حملات", "قوافل", "أنشطة أخرى"],
+                labels: ["حملات", "قوافل", "جذب"],
                 datasets: [{
-                    data: total > 0 ? [@campaignCount, @convoyCount, @otherCount] : [1, 1, 1], 
+                    data: total > 0 ? [campaignCount, convoyCount, attractionCount] : [1, 1, 1],
                     backgroundColor: ["#007bff", "#28a745", "#ffc107"]
                 }]
             },
