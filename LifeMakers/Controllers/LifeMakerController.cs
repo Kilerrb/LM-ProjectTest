@@ -27,8 +27,8 @@ namespace LifeMakers.Controllers
 
             string safeActivities = activities ?? string.Empty;
 
-            int campaignCount = Regex.Matches(safeActivities, "(حملة|حملات)", RegexOptions.IgnoreCase).Count;
-            int convoyCount = Regex.Matches(safeActivities, "(قافلة|قوافل)", RegexOptions.IgnoreCase).Count;
+            int campaignCount = Regex.Matches(safeActivities, "(حملة|حمله|حملات)", RegexOptions.IgnoreCase).Count;
+            int convoyCount = Regex.Matches(safeActivities, "(قافله|قافلة|قوافل)", RegexOptions.IgnoreCase).Count;
             int attractCount = Regex.Matches(safeActivities, "(جذب)", RegexOptions.IgnoreCase).Count;
 
             ViewBag.CampaignCount = campaignCount;
